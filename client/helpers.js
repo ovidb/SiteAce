@@ -11,5 +11,6 @@ Template.website_list.helpers({
 Template.website_list.onCreated(function() {
   this.autorun(() => {
     this.subscribe('websites');
+    this.subscribe('voters');
   });
 });
