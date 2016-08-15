@@ -9,7 +9,35 @@ Meteor.methods({
   },
   'upVote'(websiteId) {
     if(this.userId) {
-      console.log("Upvoting websiteId:" + websiteId);
+      const website = Websites.findOne({_id: websiteId});
+      const user = Meteor.user();
+      let voters = Voters.findOne({websiteId: website._id});
+      // if no one voted on the current site create
+      // voters object
+      if (!voters) {
+        voters = {
+          websiteId: websiteId,
+          upVoters: [],
+          upVotes: 0,
+          downVoters: [],
+          downVotes: 0
+        };
+      }
+      // did current user already voted up
+      if (voters.upVoters.indexOf(user._id) > -1) { return; }
+      // did user voted down? remove it
+      if (voters.downVoters.indexOf(user._id) > -1) {
+        voters.downVoters.splice(user._id, 1);
+        voters.downVotes -= 1;
+      }
+      // vote up
+      voters.upVoters.push(user._id);
+      voters.upVotes += 1;
+      Voters.upsert({_id: voters._id}, voters);
+    }
+  },
+  'downVote'(websiteId) {
+    if(this.userId) {
       const website = Websites.findOne({_id: websiteId});
       const user = Meteor.user();
       let voters = Voters.findOne({websiteId: website._id});
@@ -18,17 +46,22 @@ Meteor.methods({
         voters = {
           websiteId: websiteId,
           upVoters: [],
+          upVotes: 0,
           downVoters: [],
+          downVotes: 0
         };
-      } else if (voters.downVoters[user._id]) {
-        voters.downVoters.splice(user._id, 1);
       }
-      console.log("Assigning voter: "+user);
-      voters.upVoters.push(user._id);
+      // did current user already voted up
+      if (voters.downVoters.indexOf(user._id) > -1) { return; }
+      // did user voted down? remove it
+      if (voters.upVoters.indexOf(user._id) > -1) {
+        voters.upVoters.splice(user._id, 1);
+        voters.upVotes -= 1;
+      }
+      voters.downVoters.push(user._id);
+      voters.downVotes += 1;
 
-      console.log("Voters before insert" + voters);
       Voters.upsert({_id: voters._id}, voters);
     }
   },
-  
 });
