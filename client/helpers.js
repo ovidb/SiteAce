@@ -14,3 +14,18 @@ Template.website_list.onCreated(function() {
     this.subscribe('voters');
   });
 });
+
+////////
+// Website_item helpers
+////////
+
+Template.website_item.helpers({
+  'upVotes'() {
+    res = Voters.findOne({websiteId:this._id}, {fields: { upVotes: 1}})
+    return (res) ? res.upVotes : 0
+  },
+  'downVotes'() {
+    res = Voters.findOne({websiteId:this._id}, {fields: { downVotes: 1}})
+    return (res) ? res.downVotes : 0
+  },
+})
