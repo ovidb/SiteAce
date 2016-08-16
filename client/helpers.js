@@ -20,12 +20,5 @@ Template.website_list.onCreated(function() {
 ////////
 
 Template.website_item.helpers({
-  'upVotes'() {
-    res = Websites.findOne({_id:this._id}, {fields: { upVotes: 1}});
-    return (res) ? res.upVotes : 0
-  },
-  'downVotes'() {
-    res = Websites.findOne({_id:this._id}, {fields: { downVotes: 1}});
-    return (res) ? res.downVotes : 0
-  },
+
 })

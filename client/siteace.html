@@ -53,7 +53,7 @@
 <!-- template that displays individual website entries -->
 <template name="website_item">
 <li>
-	<a href="{{url}}">{{title}}</a>
+	<a href="/website/{{_id}}">{{title}}</a>
 	<p>
 		{{description}}
 	</p>
@@ -64,6 +64,7 @@
 		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
 	</a>
 	<!-- you will be putting your up and down vote buttons in here! -->
-  Upvotes: {{upVotes}} Downvotes: {{downVotes}}
+  <div class="row">Upvotes: {{upVotes}} Downvotes: {{downVotes}}</div>
+  <div class="row">{{createdAt}}</div>
 </li>
 </template>
