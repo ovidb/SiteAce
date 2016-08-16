@@ -1,5 +1,5 @@
 Meteor.publish("voters", function() {
-	return Voters.find();
+	return Voters.find({});
 });
 Meteor.publish("websites", function() {
 	return Websites.find();
