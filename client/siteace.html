@@ -1,28 +1,53 @@
+<template name="App_body">
 <head>
   <title>siteace</title>
 </head>
 
 <body>
-	<!-- navbar  - you will be putting the login functions here -->
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="#">
-	        Site Ace
-	      </a>
-	    </div>
-      <p class="navbar-text navbar-right">{{> loginButtons align="right"}}</p>
-	  </div>
-	</nav>
+
+  {{> nav_bar}}
 
 	<div class="container">
-    {{#if currentUser}}
-		{{> website_form}}
-    {{/if}}
-		{{> website_list}}
+    {{> Template.dynamic template=main}}
 	</div>
-</body>
 
+</body>
+</template>
+<template name="Website_show">
+  <p>
+		{{description}}
+	</p>
+	<a href="#" class="btn btn-default js-upvote">
+		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+	</a>
+	<a href="#" class="btn btn-default js-downvote">
+		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+	</a>
+	<!-- you will be putting your up and down vote buttons in here! -->
+  <div class="row">Upvotes: {{upVotes}} Downvotes: {{downVotes}}</div>
+  <div class="row">{{createdAt}}</div>
+</template>
+
+<template name="Websites_list">
+  {{#if currentUser}}
+  {{> website_form}}
+  {{/if}}
+  {{> website_list}}
+</template>
+
+<template name="nav_bar">
+
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          Site Ace
+        </a>
+      </div>
+      <p class="navbar-text navbar-right">{{> loginButtons align="right"}}</p>
+    </div>
+  </nav>
+</template>
 
 <template name="website_form">
 	<a class="btn btn-default js-toggle-website-form" href="#">
