@@ -22,6 +22,7 @@ Template.Website_show_page.onCreated(function() {
 
   this.autorun(() => {
     this.subscribe('website', this.getWebsiteId());
+    this.subscribe('comments', this.getWebsiteId());
   });
 });
 
@@ -34,6 +35,21 @@ Template.Website_show_page.helpers({
     website() {
       const instance = Template.instance();
       const listId = instance.getWebsiteId();
-      return Websites.findOne({_id: listId});
+      website = Websites.findOne({_id: listId});
+      website.isDetailed = true;
+      return website;
     }
+});
+
+Template.insertCommentForm.helpers({
+  docid() {
+    return FlowRouter.getParam('_id');
+  },
+  owner:function() { return Meteor.userId;}
+});
+
+Template.commentList.helpers({
+  comments: function() {
+    return Comments.find({});
+  }
 });

@@ -1,4 +1,13 @@
 Meteor.methods({
+  addComment:function(comment) {
+		console.log("addComment method running");
+		if(this.userId) {
+			comment.createdOn = new Date();
+			comment.owner = this.userId;
+			console.log("Inserting comment: "+JSON.stringify(comment));
+			return Comments.insert(comment);
+		}
+	},
   'addWebsite'(website) {
     if(this.userId) {
       console.log("Adding new Website: "+ JSON.stringify(website));

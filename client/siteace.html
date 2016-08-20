@@ -83,4 +83,32 @@
   <div class="row">Upvotes: {{upVotes}} Downvotes: {{downVotes}}</div>
   <div class="row">{{createdAt}}</div>
 </li>
+
+{{#if isDetailed}}
+  {{> commentList}}
+  {{> insertCommentForm}}
+{{/if}}
+</template>
+
+<template name="commentList">
+  <ul>
+    {{#each comments}}
+    <li>{{title}}
+      <p>{{body}}</p>
+    </li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="insertCommentForm">
+    {{#autoForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment"}}
+    <fieldset>
+      <legend>Comment</legend>
+      {{> afQuickField name='title'}}
+      {{> afQuickField name='body' rows=6 value="Write your comment here"}}
+      {{> afQuickField name='docid' value=docid type="hidden"}}
+
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Insert</button>
+  {{/autoForm}}
 </template>

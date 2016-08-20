@@ -11,3 +11,6 @@ Meteor.publish("website", (websiteId)=> {
 Meteor.publish("allUserData", function () {
   return Meteor.users.find({}, {fields: {'profile': 1}});
 });
+Meteor.publish("comments", function(websiteId) {
+	return Comments.find({docid: websiteId});
+});
