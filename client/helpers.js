@@ -30,11 +30,7 @@ Template.Website_show_page.helpers({
       const instance = Template.instance();
       return instance.subscriptionsReady()
     },
-    // We pass `list` (which contains the full list, with all fields, as a function
-    // because we want to control reactivity. When you check a todo item, the
-    // `list.incompleteCount` changes. If we didn't do this the entire list would
-    // re-render whenever you checked an item. By isolating the reactiviy on the list
-    // to the area that cares about it, we stop it from happening.
+
     website() {
       const instance = Template.instance();
       const listId = instance.getWebsiteId();
