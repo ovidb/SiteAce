@@ -2,3 +2,10 @@
 .hidden_div{
 	display:none;
 }
+.avatar_img{
+	height:35px;
+	width:35px;
+}
+.margin-top-20 {
+	margin-top: 20px;
+}

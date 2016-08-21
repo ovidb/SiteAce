@@ -48,8 +48,8 @@
   {{#autoForm collection="Websites" id="insertNewWebsite" type="method" meteormethod="addWebsite"}}
     <fieldset>
       <legend>Add new website</legend>
+      {{> afQuickField name='url' class='js-add-url'}}
       {{> afQuickField name='title'}}
-      {{> afQuickField name='url'}}
       {{> afQuickField name='description' rows=6 placeholder="Description here"}}
     </fieldset>
     <button type="submit" class="btn btn-primary">Insert</button>
@@ -69,19 +69,26 @@
 <!-- template that displays individual website entries -->
 <template name="website_item">
 <li>
-	<a href="/website/{{_id}}">{{title}}</a>
-	<p>
-		{{description}}
-	</p>
-	<a href="#" class="btn btn-default js-upvote">
-		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-	</a>
-	<a href="#" class="btn btn-default js-downvote">
-		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-	</a>
-	<!-- you will be putting your up and down vote buttons in here! -->
-  <div class="row">Upvotes: {{upVotes}} Downvotes: {{downVotes}}</div>
-  <div class="row">{{createdAt}}</div>
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <a href="/website/{{_id}}">{{title}}</a>
+
+  </div>
+  <div class="panel-body">
+	  {{description}}
+  </div>
+  <div class="panel-footer">
+      <a href="#" class="btn btn-danger js-upvote">
+    		<span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+        <span class="badge">{{upVotes}}</span>
+    	</a>
+    	<a href="#" class="btn btn-default js-downvote">
+    		<span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+        <span class="badge">{{downVotes}}</span>
+    	</a>
+      <span class="label label-info pull-right">Added {{formatDate createdAt}}</span>
+  </div>
+  </div>
 </li>
 
 {{#if isDetailed}}
@@ -91,10 +98,20 @@
 </template>
 
 <template name="commentList">
-  <ul>
+  <ul class="list-group">
+    <legend>Comments</legend>
     {{#each comments}}
-    <li>{{title}}
-      <p>{{body}}</p>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-xs-12"><img class="img-circle avatar_img" src="/{{getProfilePicture owner}}" />{{getUsername owner}}
+        <span class="label label-default pull-right">Added {{formatDate createdAt}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <blockquote>
+          <div class="col-xs-12 margin-top-20 text-large">{{body}}</div>
+        </blockquote>
+      </div>
     </li>
     {{/each}}
   </ul>
@@ -103,9 +120,8 @@
 <template name="insertCommentForm">
     {{#autoForm collection="Comments" id="insertCommentForm" type="method" meteormethod="addComment"}}
     <fieldset>
-      <legend>Comment</legend>
-      {{> afQuickField name='title'}}
-      {{> afQuickField name='body' rows=6 value="Write your comment here"}}
+      <legend>Add your comment</legend>
+      {{> afQuickField name='body' rows=6 placeholder="Write your comment here"}}
       {{> afQuickField name='docid' value=docid type="hidden"}}
 
     </fieldset>
