@@ -16,6 +16,18 @@ Template.website_list.onCreated(function() {
     this.subscribe('websites');
   });
 });
+///////////
+// website_form
+//////////
+
+Template.website_form.helpers({
+  urlTitle() {
+    return Session.get("WebsiteFormURLTitle");
+  },
+  urlDescription() {
+    return Session.get("WebsiteFormURLDescription");
+  }
+});
 
 ////////
 // Website_show
@@ -29,7 +41,6 @@ Template.Website_show_page.onCreated(function() {
     this.subscribe('allUserData');
   });
 });
-
 Template.Website_show_page.helpers({
     websiteReady: ()=> {
       const instance = Template.instance();

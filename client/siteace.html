@@ -49,8 +49,9 @@
     <fieldset>
       <legend>Add new website</legend>
       {{> afQuickField name='url' class='js-add-url'}}
-      {{> afQuickField name='title'}}
-      {{> afQuickField name='description' rows=6 placeholder="Description here"}}
+      <button type="button" class="btn btn-primary js-get-title">Get Title and Description from URL</button>
+      {{> afQuickField name='title' value=urlTitle}}
+      {{> afQuickField name='description' value=urlDescription rows=6 placeholder="Description here"}}
     </fieldset>
     <button type="submit" class="btn btn-primary">Insert</button>
   {{/autoForm}}
@@ -71,8 +72,11 @@
 <li>
   <div class="panel panel-default">
   <div class="panel-heading">
+    {{#if isDetailed}}
+    <a href="{{url}}">{{title}}</a>
+    {{else}}
     <a href="/website/{{_id}}">{{title}}</a>
-
+    {{/if}}
   </div>
   <div class="panel-body">
 	  {{description}}
