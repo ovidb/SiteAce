@@ -12,8 +12,8 @@ Meteor.methods({
     if(this.userId) {
       console.log("Adding new Website: "+ JSON.stringify(website));
       Websites.insert(website);
-      // reset Title and Description from addWebsite
-      if(isClient) {
+      // reset Title and Descriptio
+      if(Meteor.isClient) {
         Session.set("WebsiteFormURLTitle", null);
         Session.set("WebsiteFormURLDescription", null);
       }
