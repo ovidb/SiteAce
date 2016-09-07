@@ -6,6 +6,8 @@
     db.voters.find({ upVoters: { $elemMatch : {$eq:  <userId>} }},{upVoters:1})
 
 [x] rank the results based on the count of similar votes
+    // we use elemMatch only when we want to specify multiple criteria for array elements.
+    // it's not our case for now but it's better to have the logic in place
 
     db.voters.aggregate(
         { $match: { upVoters: { $elemMatch : {$eq:  <userId> } }}},
