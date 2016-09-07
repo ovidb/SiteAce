@@ -1,9 +1,26 @@
 ** Challange 2: Recommander system
 
 *** Stage 1
-[] find which users voted same pages as the current user
-[] rank the results based on the count of similar votes
-[] get pages that those users voted on in that order
+[x] find which users voted same pages as the current user
+
+    db.voters.find({ upVoters: { $elemMatch : {$eq:  <userId>} }},{upVoters:1})
+
+[x] rank the results based on the count of similar votes
+
+    db.voters.aggregate(
+        { $match: { upVoters: { $elemMatch : {$eq:  <userId> } }}},
+        { $unwind : "$upVoters" },
+        { $group : {
+            _id : "$upVoters",
+            count: { $sum : 1 }
+
+        }}
+    );
+
+[x] get pages that those users voted on in that order
+
+    db.voters.find({ upVoters: { $elemMatch : {$in:  <userList>} }})
+
 [] create template to display recommanded websites
 [] display the recommended pages
 
