@@ -16,7 +16,9 @@
             _id : "$upVoters",
             count: { $sum : 1 }
 
-        }}
+        }},
+        { $sort: {count: -1}}
+
     );
 
 [x] get pages that those users voted on in that order
