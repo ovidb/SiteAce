@@ -27,3 +27,4 @@ kadira:flow-router
 kadira:blaze-layout
 momentjs:moment
 http
+meteorhacks:aggregate
