@@ -60,6 +60,14 @@
 
 <!-- template that displays several website items -->
 <template name="website_list">
+    {{#if recommendWebsite}}
+        <h1>Recommended websites</h1>
+        <ol>
+            {{#each recommendedWebsites }}
+                {{>website_item}}
+            {{/each}}
+        </ol>
+    {{/if}}
 	<ol>
 	{{#each websites}}
 	{{>website_item}}
