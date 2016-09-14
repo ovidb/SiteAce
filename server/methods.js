@@ -10,6 +10,7 @@ Meteor.methods({
     }
   },
   'getRecommendedWebsites'() {
+    let websites = [];
     let userList = Voters.aggregate([
       {$match: {upVoters: this.userId}},
       {$project: {_id: 0, upVoters: 1}},
@@ -17,7 +18,18 @@ Meteor.methods({
       {$group:{_id: "$upVoters", count: {$sum: 1}}},
       {$sort:{count:-1}}
     ]);
-    console.log(userList);
+    userList.shift()
+
+    //get websites ranked user voted for
+
+    userList.forEach((e)=> {
+      //get websites
+      let website = Voters.find({upVoters: {$eq: e._id, $ne: this.userId}},{sort: {upVotes: -1}});
+      websites.push(website);
+    })
+
+    return websites;
+
   }
 });
 
