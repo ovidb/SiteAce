@@ -9,7 +9,7 @@ Meteor.methods({
       }
     }
   },
-  'getRecommendedWebsites'() {
+  'getRecommendedWebsitesIds'() {
     let websites = [];
     let userList = Voters.aggregate([
       {$match: {upVoters: this.userId}},
@@ -18,18 +18,28 @@ Meteor.methods({
       {$group:{_id: "$upVoters", count: {$sum: 1}}},
       {$sort:{count:-1}}
     ]);
-    userList.shift()
+    userList.shift();
 
     //get websites ranked user voted for
-
-    userList.forEach((e)=> {
+    for (var e of userList) {
       //get websites
-      let website = Voters.find({upVoters: {$eq: e._id, $ne: this.userId}},{sort: {upVotes: -1}});
-      websites.push(website);
-    })
+      let website = Voters.find(
+        {upVoters: {$eq: e._id, $ne: this.userId}},
+        {fields: {websiteId:1, _id:0}},
+        {sort: {upVotes: -1}}
 
-    return websites;
+        ).fetch();
+      if(website) {
+        console.log("WB"+JSON.stringify(website));
+        websites = websites.concat(website);
+      }
+    }
+    let websitesId = []
+    websites.forEach((e)=> {
+      websitesId.push(e.websiteId);
+    });
 
+    return websitesId;
   }
 });
 

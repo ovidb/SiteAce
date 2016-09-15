@@ -60,14 +60,18 @@
 
 <!-- template that displays several website items -->
 <template name="website_list">
-    {{#if recommendWebsite}}
+
         <h1>Recommended websites</h1>
+    {{#if recommendWebsites}}
         <ol>
             {{#each recommendedWebsites }}
                 {{>website_item}}
             {{/each}}
         </ol>
+    {{else}}
+        <h4 style="margin-left: 20px;">Noting to recommend yet. Vote with one user website 1 and 2 and then with another 2, 3 and 4 and see what happens.</h4>
     {{/if}}
+    <h1>Other sites</h1>
 	<ol>
 	{{#each websites}}
 	{{>website_item}}

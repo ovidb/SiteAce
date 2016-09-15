@@ -7,14 +7,30 @@ Template.registerHelper('formatDate', function(date) {
 
 // helper function that returns all available websites
 Template.website_list.helpers({
+  recommendWebsites() {
+    let websitesId = Session.get("recommendedWebsites");
+    if (websitesId.constructor === Array) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+  recommendedWebsites() {
+    let websitesId = Session.get("recommendedWebsites");
+    if (websitesId.constructor === Array) {
+      return Websites.find({_id: {$in: websitesId}});
+    }
+  },
   websites:function(){
     return Websites.find({}, {sort:{upVotes: -1, downVotes: 1}});
   }
 });
 Template.website_list.onCreated(function() {
+
   this.autorun(() => {
     this.subscribe('websites');
   });
+
 });
 ///////////
 // website_form
