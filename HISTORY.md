@@ -26,7 +26,7 @@
     db.voters.find({ upVoters: { $elemMatch : {$in:  <userList>} }})
 
 [x] create template to display recommanded websites
-[] display the recommended pages
+[x] display the recommended pages
 
 
 ** Challenge 1: Automatic information]
